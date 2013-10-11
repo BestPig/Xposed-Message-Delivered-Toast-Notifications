@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Message Delivered Toast Notifications</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="show_number_title">Show number in notification</string>
+    <string name="show_number_on">Number will be shown in toast notification</string>
+    <string name="show_number_off">Only the name will be shown in the toast notification, if the contact is not saved, the number will be shown</string>
+    <string name="long_toast_title">Long toast duration</string>
+    <string name="long_toast_duration_description">The toast notification will be shown for a longer period of time</string>
+
+</resources>
