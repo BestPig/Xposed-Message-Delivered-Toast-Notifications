@@ -3,6 +3,7 @@ package com.mohammadag.deliverytoastnotification;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.widget.Toast;
@@ -16,6 +17,7 @@ import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam;
 public class XposedMod implements IXposedHookLoadPackage {
 
 	private XSharedPreferences mPreferences;
+    private String deliveryReportMethodName;
 
 	@Override
 	public void handleLoadPackage(LoadPackageParam lpparam) throws Throwable {
@@ -25,8 +27,14 @@ public class XposedMod implements IXposedHookLoadPackage {
 		mPreferences = new XSharedPreferences(XposedMod.class.getPackage().getName());
 
 		try {
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                deliveryReportMethodName = "a";
+            }
+            else {
+                deliveryReportMethodName = "updateReportNotification";
+            }
 			XposedHelpers.findAndHookMethod("com.android.mms.transaction.MessagingNotification",
-					lpparam.classLoader, "updateReportNotification", Context.class, int.class,
+					lpparam.classLoader, deliveryReportMethodName, Context.class, int.class,
 					int.class, long.class, String.class, new XC_MethodHook() {
 				@Override
 				protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
